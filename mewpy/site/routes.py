@@ -1,14 +1,9 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_required, login_user, logout_user, current_user
-from ..models import Device, User
+
 from . import site
 from .. import login_manager
-
-
-@site.route('/', methods=['GET'])
-@site.route('/index', methods=['GET'])
-def index():
-    return render_template('index.html', devices=Device.query.all(), user=current_user)
+from ..models import Device, User
 
 
 @login_manager.user_loader
@@ -38,6 +33,36 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('site.index'))
+
+
+@site.route('/', methods=['GET'])
+@site.route('/index', methods=['GET'])
+def index():
+    return render_template('index.html', current_user=current_user)
+
+
+@site.route('/devices')
+@login_required
+def devices():
+    return render_template('devices.html', devices=Device.query.all(), current_user=current_user)
+
+
+@site.route('/devices/<string:serial_number>')
+def device_by_serial_number(serial_number):
+    return render_template('device.html', device=Device.query.filter_by(serial_number=serial_number).first(),
+                           current_user=current_user)
+
+
+@site.route('/users')
+@login_required
+def users():
+    return render_template('users.html', users=User.query.all(), current_user=current_user)
+
+
+@site.route('/users/<string:username>')
+@login_required
+def user_by_username(username):
+    return render_template('user.html', user=User.get_by_username(username), current_user=current_user)
 
 
 @site.route('/add', methods=['GET', 'POST'])

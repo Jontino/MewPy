@@ -1,0 +1,39 @@
+{%- extends "navbase.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="page-header my-md-2">
+            <h1>All Devices</h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Device ID</th>
+                <th>Name</th>
+                <th>Serial Number</th>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for device in devices %}
+            <tr>
+                <td>
+                    <a class="device-id"
+                       href="{{ url_for('site.device_by_serial_number', serial_number=device.serial_number) }}">
+                        <i class="fa fa-microchip"></i> {{ device.id }}</a></td>
+                <td>{{ device.name }}</td>
+                <td>{{ device.serial_number }}</td>
+                <td>{{ device.user.username }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm">Edit</button>
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

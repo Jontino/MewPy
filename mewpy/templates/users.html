@@ -1,0 +1,35 @@
+{%- extends "navbase.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="page-header my-md-2">
+            <h1>All Users</h1>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+            <tr>
+                <td><a class="device-id" href="{{ url_for('site.user_by_username', username=user.username) }}">
+                    <i class="fa fa-user"></i> {{ user.id }}</a></td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm">Edit</button>
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{%- extends "base.html" %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('site.index') }}">
+        <img src="{{ url_for('static', filename='img/devices.svg') }}" width="30"
+             height="30" class="d-inline-block align-top mr-md-2" alt="">
+        MewPy
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"/>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('site.devices') }}">Devices <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('site.users') }}">Users</a>
+            </li>
+        </ul>
+    </div>
+    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item dropdown">
+            <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="user-menu" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user mr-md-2"></i>{{ current_user.username }}</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user-menu">
+                {% if current_user.is_authenticated %}
+                <a class="dropdown-item" href="#">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('site.logout') }}">Logout</a>
+                {% else %}
+                <a class="dropdown-item" href="{{ url_for('site.login') }}">Login</a>
+                {% endif %}
+            </div>
+        </li>
+    </ul>
+</nav>{% endblock %}

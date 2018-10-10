@@ -12,13 +12,15 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    position: relative
+    position: relative;
+    text-align: center;
 }
 
 .tile_count .tile_stats_count .count {
     font-size: 50px;
     line-height: 48px;
     font-weight: 640;
+    text-align: center;
 }
 
 .tile_count .tile_stats_count:before {
@@ -32,3 +34,8 @@
 .count {
     padding: 0px 0px 0px 25px;
 }
+
+.device-id {
+    color: #000000
+}
+
